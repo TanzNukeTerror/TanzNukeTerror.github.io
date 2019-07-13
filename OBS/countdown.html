@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="UTF-8">
+		<title>Simple countdown timer (clock-synced)</title>
+
+
+
+		<script type="text/javascript">
+/*
+	'Variables from URL' code written by Chris Coyier of css-tricks.com
+		https://css-tricks.com/snippets/javascript/get-url-variables/
+
+	Everything else by TanzNukeTerror
+*/
+
+			document.addEventListener('DOMContentLoaded', function(){	// When document is loaded
+				function getQueryVariable(variable) {
+					var query = window.location.search.substring(1);
+					vars = query.split('&');
+					for (var i = 0; i < vars.length; i++){
+						var pair = vars[i].split('=');
+						if(pair[0] == variable) {
+							return pair[1];
+						}
+					}
+					return(false);
+				}
+
+
+
+				var dur_minutes = getQueryVariable('minutes') || 5;
+				var dur_seconds = dur_minutes*60;
+
+				var end = ((new Date().getTime())/1000)+dur_seconds;
+				var cur, diff, minutes, seconds = 0;
+
+				function updateTimer(){
+					cur = (new Date().getTime())/1000;
+					diff = Math.ceil(end - cur);
+
+					if (diff == 0) {
+						clearInterval(timerinterval);
+					}
+
+					minutes = Math.floor(diff/60);
+					seconds = ('0' + (diff-(minutes*60))).slice(-2);
+					document.body.innerText = minutes + ':' + seconds;
+				}
+				
+				updateTimer();
+
+				var timerinterval = setInterval(updateTimer, 1000);
+			});
+		</script>
+	</head>
+
+
+
+	<body>
+		
+	</body>
+</html>
