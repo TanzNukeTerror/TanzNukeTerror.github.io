@@ -32,6 +32,7 @@
 				}
 				var hue_start = getQueryVariable('hue_start') || 213;
 				var hue_end = getQueryVariable('hue_end') || 213;
+				var light_override = getQueryVariable('light_override') || 0;
 
 
 				var body = document.body;
@@ -105,8 +106,11 @@
 						} else {
 							var hue_scale = ((hue_range*(_this.velocity/2))+hue_start);
 						}
+						if (light_override == 0) {
+							light_override = ((50*(_this.velocity/2))+50);
+						}
 
-						ctx.fillStyle = 'hsla('+ hue_scale +', 100%, '+ ((50*(_this.velocity/2))+50) +'%, '+ _this.alpha +')';
+						ctx.fillStyle = 'hsla('+ hue_scale +', 100%, '+ light_override +'%, '+ _this.alpha +')';
 						ctx.fill();
 					}
 				}
