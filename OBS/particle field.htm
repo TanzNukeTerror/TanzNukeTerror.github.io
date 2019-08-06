@@ -100,12 +100,16 @@
 						ctx.arc(_this.pos.x, _this.pos.y, _this.scale*12, 0, 2 * Math.PI, false);
 
 						var hue_range = Math.abs(hue_start-hue_end);
-
+/*
 						if (hue_end < hue_start) {
 							var hue_scale = (hue_start-(hue_range*(_this.velocity/2)));
 						} else {
 							var hue_scale = ((hue_range*(_this.velocity/2))+hue_start);
 						}
+*/
+						
+						var hue_scale = (((_this.velocity/2) <= 0.5) : hue_start ? hue_end);
+						
 						if (light_override == 0) {
 							light_override = ((50*(_this.velocity/2))+50);
 						}
