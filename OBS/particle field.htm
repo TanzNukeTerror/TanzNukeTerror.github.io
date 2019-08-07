@@ -35,7 +35,7 @@
 				}
 				var hue_start = parseInt(getQueryVariable('hue_start')) || 213;
 				var hue_end = parseInt(getQueryVariable('hue_end')) || 213;
-				var light_override = parseInt(getQueryVariable('light_override')) || 0;
+				var light_override = parseInt(getQueryVariable('light_override')) || null;
 				var opacity_override = parseFloat(getQueryVariable('opacity_override')) || 0.2;
 
 				var body = document.body;
@@ -112,7 +112,7 @@
 						
 						var hue_scale = (((_this.velocity/2) <= 0.5) ? hue_start : hue_end);
 						
-						if (light_override == 0) {
+						if (light_override == null) {
 							light_override = ((50*(_this.velocity/2))+50);
 						}
 
