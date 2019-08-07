@@ -33,7 +33,7 @@
 				var hue_start = getQueryVariable('hue_start') || 213;
 				var hue_end = getQueryVariable('hue_end') || 213;
 				var light_override = getQueryVariable('light_override') || 0;
-				var opacity_override = getQueryVariable('opacity_override') || 0;
+				var opacity_override = getQueryVariable('opacity_override') || 0.2;
 
 
 				var body = document.body;
@@ -86,7 +86,7 @@
 					function init() {
 						_this.pos.x = Math.random()*width;
 						_this.pos.y = height+Math.random()*100;
-						_this.alpha = ((opacity_override < 0) ? 0.2 + Math.random()*0.3 : 1);
+						_this.alpha = opacity_override + Math.random()*0.3;
 						_this.scale = 0.1+Math.random()*0.3;
 						_this.velocity = Math.random()*2;
 					}
