@@ -5,6 +5,18 @@
 		<title>Simple countdown timer (clock-synced)</title>
 
 
+		<style type="text/css">
+			body {
+				font-size: 100px;
+			}
+			span {
+				display: inline-block;
+				width: 0.415em;
+				margin-right: 0.118em;
+				text-align: center;
+			}
+		</style>
+
 
 		<script type="text/javascript">
 /*
@@ -34,6 +46,7 @@
 
 				var end = ((new Date().getTime())/1000)+dur_seconds;
 				var cur, diff, minutes, seconds = 0;
+				var timestamp = '';
 
 				function updateTimer(){
 					cur = (new Date().getTime())/1000;
@@ -45,7 +58,21 @@
 
 					minutes = Math.floor(diff/60);
 					seconds = ('0' + (diff-(minutes*60))).slice(-2);
-					document.body.innerText = minutes + ':' + seconds;
+
+					timestamp = minutes + ':' + seconds;
+
+					timestamp = timestamp.split('');
+
+					timestamp = '<span>' + timestamp.join('</span><span>') + '</span>';
+
+//					timestamp.unshift('<span>');
+
+//					console.log(timestamp);
+
+//					document.body.innerText = minutes + ':' + seconds;
+					
+					document.body.innerHTML = timestamp;
+
 				}
 				
 				updateTimer();
