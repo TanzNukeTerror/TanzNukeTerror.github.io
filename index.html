@@ -81,56 +81,58 @@
 		</style>
 		
 		<script type="text/javascript">
-			var imgbox = document.querySelectorAll('.imgbox')[0];
-			var debug = document.querySelectorAll('#debug')[0];
+			document.addEventListener('DOMContentLoaded', function(){
+				var imgbox = document.querySelectorAll('.imgbox')[0];
+				var debug = document.querySelectorAll('#debug')[0];
 
-			var img_list = [];
-			for(var i = 0; i < 45; i++) {
-				var imgsize = Math.floor((Math.random() * 900) + 500);
-				img_list.push('https://placekitten.com/g/' + imgsize + '/' + imgsize);
-			}
-
-
-
-			var total_images = img_list.length;
-			var images_per_row = 4;
-			var total_rows = Math.ceil(total_images/images_per_row); // with 5 and 4, this should output 2
-			var visible_rows = 4;
-			var rows_per_load = 4;
-			var img_array = new Array();
-
-
-			function show_images() {
-				var imglength = parseInt(document.querySelectorAll('.img').length) || 0;
-				for(var i = imglength; i < Math.min(total_images, imglength+(rows_per_load*images_per_row)); i++) {
-					imgbox.insertAdjacentHTML('beforeend', '<div class="img loading"><div class="overlay">' + (i+1) + ' / ' + total_images + '</div></div>');
-
-					img_array[i] = new Image();
-					img_array[i].addEventListener('load', load_img);
-					img_array[i].src = img_list[i];
+				var img_list = [];
+				for(var i = 0; i < 45; i++) {
+					var imgsize = Math.floor((Math.random() * 900) + 500);
+					img_list.push('https://placekitten.com/g/' + imgsize + '/' + imgsize);
 				}
-			}
-			show_images();
 
 
-			function load_img() {
-				var num = img_array.indexOf(this);
 
-				var load_img = document.querySelectorAll('.img')[num];
-				load_img.style.backgroundImage = 'url(\'' + img_list[num] + '\')';
-				load_img.classList.remove('loading');
-			}
+				var total_images = img_list.length;
+				var images_per_row = 4;
+				var total_rows = Math.ceil(total_images/images_per_row); // with 5 and 4, this should output 2
+				var visible_rows = 4;
+				var rows_per_load = 4;
+				var img_array = new Array();
 
 
-			imgbox.addEventListener('scroll', handle_scrolling);
+				function show_images() {
+					var imglength = parseInt(document.querySelectorAll('.img').length) || 0;
+					for(var i = imglength; i < Math.min(total_images, imglength+(rows_per_load*images_per_row)); i++) {
+						imgbox.insertAdjacentHTML('beforeend', '<div class="img loading"><div class="overlay">' + (i+1) + ' / ' + total_images + '</div></div>');
 
-			function handle_scrolling(e){
-				var scroll_remaining = ((this.scrollHeight - this.offsetHeight) - this.scrollTop);
-
-				if(scroll_remaining == 0) {
-					show_images();
+						img_array[i] = new Image();
+						img_array[i].addEventListener('load', load_img);
+						img_array[i].src = img_list[i];
+					}
 				}
-			};
+				show_images();
+
+
+				function load_img() {
+					var num = img_array.indexOf(this);
+
+					var load_img = document.querySelectorAll('.img')[num];
+					load_img.style.backgroundImage = 'url(\'' + img_list[num] + '\')';
+					load_img.classList.remove('loading');
+				}
+
+
+				imgbox.addEventListener('scroll', handle_scrolling);
+
+				function handle_scrolling(e){
+					var scroll_remaining = ((this.scrollHeight - this.offsetHeight) - this.scrollTop);
+
+					if(scroll_remaining == 0) {
+						show_images();
+					}
+				};
+			});
 		</script>
 	</head>
 	<body>
