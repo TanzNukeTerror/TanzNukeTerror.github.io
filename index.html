@@ -3,8 +3,137 @@
 	<head>
 		<meta charset="UTF-8">
 		<title>TanzNukeTerror on Github.io</title>
+		<style type="text/css">
+			*, *::before, *::after {
+				box-sizing: border-box;
+				position: relative;
+			}
+			body {
+				background: #191919;
+				color: #FAFAFA;
+			}
+			.imgbox {
+				max-width: 1000px;
+				height: 700px;
+				background: #333333;
+				color: #191919;
+				margin: 60px auto;
+				border-radius: 6px;
+				box-shadow: 3px 3px 24px 0px rgba(0,0,0,0.3);
+				overflow-y: auto;
+			}
+			.img {
+				--image-size: calc((100% - (24px * 4)) / 4);
+				margin: 12px;
+				width: var(--image-size);
+				padding-bottom: var(--image-size);
+				box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.3);
+				background-color: #191919;
+				background-size: 100% auto;
+				background-repeat: no-repeat;
+				background-position: center center;
+				float: left;
+			}
+			.overlay {
+				width: 100%;
+				height: 100%;
+				padding: 12px;
+				background-color: rgba(0,0,0,0.84);
+				color: #FAFAFA;
+				font-family: arial, sans-serif, 'sans serif';
+				display: block;
+				visibility: none;
+				position: absolute;
+				opacity: 0;
+			}
+			.img:hover .overlay {
+				visibility: visible;
+				opacity: 1;
+			}
+			.img .overlay {
+				transition: all 100ms linear;
+			}
+
+			.loading::after {
+				content: '';
+				display: block;
+				border: 12px solid #191919;
+				border-top-color: #FAFAFA;
+				border-bottom-color: #FAFAFA;
+				margin: 0 auto;
+				position: absolute;
+				top: calc(50% - 24px);
+				left: calc(50% - 24px);
+				width: 48px;
+				height: 48px;
+				border-radius: 50%;
+				animation: spin180 infinite 500ms linear;
+			}
+
+			@keyframes spin180 {
+				0% {
+					transform: rotate(0deg);
+				}
+				100% {
+					transform: rotate(180deg);
+				}
+			}
+		</style>
+		
+		<script type="text/javascript">
+			var imgbox = document.querySelectorAll('.imgbox')[0];
+			var debug = document.querySelectorAll('#debug')[0];
+
+			var img_list = [];
+			for(var i = 0; i < 45; i++) {
+				var imgsize = Math.floor((Math.random() * 900) + 500);
+				img_list.push('https://placekitten.com/g/' + imgsize + '/' + imgsize);
+			}
+
+
+
+			var total_images = img_list.length;
+			var images_per_row = 4;
+			var total_rows = Math.ceil(total_images/images_per_row); // with 5 and 4, this should output 2
+			var visible_rows = 4;
+			var rows_per_load = 4;
+			var img_array = new Array();
+
+
+			function show_images() {
+				var imglength = parseInt(document.querySelectorAll('.img').length) || 0;
+				for(var i = imglength; i < Math.min(total_images, imglength+(rows_per_load*images_per_row)); i++) {
+					imgbox.insertAdjacentHTML('beforeend', '<div class="img loading"><div class="overlay">' + (i+1) + ' / ' + total_images + '</div></div>');
+
+					img_array[i] = new Image();
+					img_array[i].addEventListener('load', load_img);
+					img_array[i].src = img_list[i];
+				}
+			}
+			show_images();
+
+
+			function load_img() {
+				var num = img_array.indexOf(this);
+
+				var load_img = document.querySelectorAll('.img')[num];
+				load_img.style.backgroundImage = 'url(\'' + img_list[num] + '\')';
+				load_img.classList.remove('loading');
+			}
+
+
+			imgbox.addEventListener('scroll', handle_scrolling);
+
+			function handle_scrolling(e){
+				var scroll_remaining = ((this.scrollHeight - this.offsetHeight) - this.scrollTop);
+
+				if(scroll_remaining == 0) {
+					show_images();
+				}
+			};
+		</script>
 	</head>
 	<body>
-		
+		<div class="imgbox"></div>
 	</body>
 </html>
