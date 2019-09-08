@@ -86,8 +86,8 @@
 				var debug = document.querySelectorAll('#debug')[0];
 
 				var img_list = [];
-				for(var i = 0; i < 45; i++) {
-					var imgsize = Math.floor((Math.random() * 900) + 500);
+				for(var i = 0; i < 200; i++) {
+					var imgsize = Math.floor((Math.random() * 200) + 200);
 					img_list.push('https://placekitten.com/g/' + imgsize + '/' + imgsize);
 				}
 
@@ -128,7 +128,7 @@
 				function handle_scrolling(e){
 					var scroll_remaining = ((this.scrollHeight - this.offsetHeight) - this.scrollTop);
 
-					if(scroll_remaining == 0) {
+					if(scroll_remaining < 50) {
 						show_images();
 					}
 				};
