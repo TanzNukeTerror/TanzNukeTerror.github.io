@@ -28,7 +28,8 @@
 				width: var(--image-size);
 				padding-bottom: var(--image-size);
 				box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.3);
-				background-color: #191919;
+/*				background-color: #191919;
+*/
 				background-size: 100% auto;
 				background-repeat: no-repeat;
 				background-position: center center;
@@ -41,7 +42,7 @@
 			.img .overlay {
 				transition: all 100ms linear;
 			}
-			.img:hover .overlay {
+			.img:not(.loading):hover .overlay {
 				visibility: visible;
 				opacity: 1;
 			}
