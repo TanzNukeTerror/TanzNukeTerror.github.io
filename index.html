@@ -1,12 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
-		
+
 		<meta charset="UTF-8">
 
 
 
-		<title>Image thing v1.6</title>
+		<title>Image thing v1.6.1</title>
 
 
 
@@ -53,21 +53,22 @@
 			.img.loading::after {
 				content: '';
 				display: block;
+				position: absolute;
+				width: 48px;
+				height: 48px;
 				border: 12px solid #191919;
 				border-top-color: #FAFAFA;
 				border-bottom-color: #FAFAFA;
 				margin: 0 auto;
-				position: absolute;
 				top: calc(50% - 24px);
 				left: calc(50% - 24px);
-				width: 48px;
-				height: 48px;
 				border-radius: 50%;
 				animation: spin180 infinite 500ms linear;
 			}
 			.img:not(.loading)::after {
 				content: '';
 				display: block;
+				position: absolute;
 				width: 100%;
 				height: 100%;
 				background-color: inherit;
