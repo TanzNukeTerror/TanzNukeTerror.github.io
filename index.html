@@ -1,17 +1,30 @@
 <!DOCTYPE html>
 <html lang="en">
 	<head>
+		
 		<meta charset="UTF-8">
-		<title>Image thing v1.5</title>
+
+
+
+		<title>Image thing v1.6</title>
+
+
+
 		<style type="text/css">
 			*, *::before, *::after {
 				box-sizing: border-box;
 				position: relative;
 			}
+
+
+
 			body {
 				background: #191919;
 				color: #FAFAFA;
 			}
+
+
+
 			.imgbox {
 				max-width: 1000px;
 				height: 700px;
@@ -22,46 +35,22 @@
 				box-shadow: 3px 3px 24px 0px rgba(0,0,0,0.3);
 				overflow-y: auto;
 			}
+
+
+
 			.img {
 				--image-size: calc((100% - (24px * 4)) / 4);
 				margin: 12px;
 				width: var(--image-size);
 				padding-bottom: var(--image-size);
 				box-shadow: 3px 3px 12px 0px rgba(0,0,0,0.3);
-/*				background-color: #191919;
-*/
+				background-color: #191919;
 				background-size: 100% auto;
 				background-repeat: no-repeat;
 				background-position: center center;
 				float: left;
 			}
-			.img:not(.loading) {
-				animation: fade_in linear 300ms;
-			}
-			
-			.img .overlay {
-				transition: all 100ms linear;
-			}
-			.img:not(.loading):hover .overlay {
-				visibility: visible;
-				opacity: 1;
-			}
-			.overlay {
-				width: 100%;
-				height: 100%;
-				padding: 12px;
-				background-color: rgba(0,0,0,0.84);
-				color: #FAFAFA;
-				font-family: arial, sans-serif, 'sans serif';
-				display: block;
-				visibility: none;
-				position: absolute;
-				opacity: 0;
-			}
-
-
-
-			.loading::after {
+			.img.loading::after {
 				content: '';
 				display: block;
 				border: 12px solid #191919;
@@ -76,6 +65,37 @@
 				border-radius: 50%;
 				animation: spin180 infinite 500ms linear;
 			}
+			.img:not(.loading)::after {
+				content: '';
+				display: block;
+				width: 100%;
+				height: 100%;
+				background-color: inherit;
+				animation: fade_out linear 300ms;
+				animation-fill-mode: forwards;
+			}
+			.img:not(.loading):hover .overlay {
+				visibility: visible;
+				opacity: 1;
+			}
+
+
+
+			.img .overlay {
+				width: 100%;
+				height: 100%;
+				padding: 12px;
+				background-color: rgba(0,0,0,0.84);
+				color: #FAFAFA;
+				font-family: arial, sans-serif, 'sans serif';
+				display: block;
+				visibility: none;
+				position: absolute;
+				opacity: 0;
+				transition: all 100ms linear;
+			}
+
+
 
 			@keyframes spin180 {
 				0% {
@@ -85,16 +105,19 @@
 					transform: rotate(180deg);
 				}
 			}
-			@keyframes fade_in {
+
+			@keyframes fade_out {
 				0% {
-					opacity: 0;
+					opacity: 1;
 				}
 				100% {
-					opacity: 1;
+					opacity: 0;
 				}
 			}
 		</style>
 		
+
+
 		<script type="text/javascript">
 			document.addEventListener('DOMContentLoaded', function(){
 				var imgbox = document.querySelectorAll('.imgbox')[0];
@@ -149,8 +172,13 @@
 				};
 			});
 		</script>
+
+
+
 	</head>
 	<body>
+
 		<div class="imgbox"></div>
+
 	</body>
 </html>
